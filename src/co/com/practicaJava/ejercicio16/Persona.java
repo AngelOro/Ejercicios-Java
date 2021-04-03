@@ -3,21 +3,25 @@ package co.com.practicaJava.ejercicio16;
 
 public class Persona {
 
-    private String nombre = "";
-    private Integer edad = 0;
-    private String DNI = generaDNI();
-    private Character sexo = 'H';
-    private Integer peso = 0;
-    private Double altura = 0.0;
-    private Integer valorIMC = 0;
+    //Constantes
+    private final static char sexoDefault = 'H';
+    public static final int bajoPeso = -1;
+    public static final int pesoIdeal = 0;
+    public static final int sobrepeso = 1;
+
+    private String nombre;
+    private Integer edad ;
+    private String DNI;
+    private Character sexo;
+    private Integer peso;
+    private Double altura;
 
     public Persona() {
+        this("Fulanito", 12, sexoDefault, 40, 1.48);
     }
 
     public Persona(String nombre, Integer edad, Character sexo) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.sexo = sexo;
+        this(nombre, edad, sexo, 0, 0.0);
     }
 
     public Persona(String nombre, Integer edad, Character sexo, Integer peso, Double altura) {
@@ -53,28 +57,22 @@ public class Persona {
         return peso /(Math.pow(altura,2));
     }
 
-    public int debajoPesoIdeal(){
-        if (calcularIMC() < 20){
-            valorIMC = -1;
-        }
-        return valorIMC;
+    public boolean debajoPesoIdeal(){
+        return calcularIMC() < 20;
     }
 
-    public int encimaPesoIdeal(){
-        if (calcularIMC() > 25){
-            valorIMC = 1;
-        }
-        return valorIMC;
+    public boolean encimaPesoIdeal(){
+        return calcularIMC() > 25;
     }
 
     public String asignarIMC(){
         String mensajeIMC;
-        if (encimaPesoIdeal() == 1) {
-            mensajeIMC = "Está con sobre peso";
-        }else if(debajoPesoIdeal() == -1) {
-            mensajeIMC = "Está por debajo del peso ideal";
+        if (encimaPesoIdeal()) {
+            mensajeIMC = "IMC: " + sobrepeso + " -> Está con sobre peso";
+        }else if(debajoPesoIdeal()) {
+            mensajeIMC = "IMC: " + bajoPeso +" -> Está por debajo del peso ideal";
         }else {
-            mensajeIMC = "Está con el peso ideal";
+            mensajeIMC = "IMC: " + pesoIdeal +" -> Está con el peso ideal";
         }
         return mensajeIMC;
     }
@@ -110,7 +108,6 @@ public class Persona {
                 ", sexo=" + sexo +
                 ", peso=" + peso +
                 ", altura=" + altura +
-                ", valorIMC=" + valorIMC +
                 '}';
     }
 }

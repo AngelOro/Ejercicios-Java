@@ -6,17 +6,22 @@ import java.util.Locale;
 
 public class Electrodomestico {
 
-    private Integer precioBase = 100;
-    private String color = "blanco";
-    private Character consumoEnergico = 'F';
-    private Integer peso = 5;
+    protected final static Integer precioBaseDefault = 100;
+    protected final static String colorDefault = "blanco";
+    protected final static Character consumoEnergicoDefault = 'F';
+    protected final static Integer pesoDefault = 5;
+
+    protected Integer precioBase;
+    protected String color;
+    protected Character consumoEnergico;
+    protected Integer peso;
 
     public Electrodomestico() {
+        this(precioBaseDefault, colorDefault, consumoEnergicoDefault, pesoDefault);
     }
 
     public Electrodomestico(Integer precioBase, Integer peso) {
-        this.precioBase = precioBase;
-        this.peso = peso;
+        this(precioBase, colorDefault, consumoEnergicoDefault, peso);
     }
 
     public Electrodomestico(Integer precioBase, String color, Character consumoEnergico, Integer peso) {
@@ -43,19 +48,19 @@ public class Electrodomestico {
     }
 
     private char comprobarConsumoEnergetico(char letra){
-        List<Character> consumo = Arrays.asList(new Character[]{'A', 'B', 'C', 'D', 'E', 'F'});
+        List<Character> consumo = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F');
         if (consumo.contains(letra)){
             return letra;
         }
-        return 'F';
+        return consumoEnergicoDefault;
     }
 
     private String comprobarColor(String color){
-        List<String> colores = Arrays.asList(new String[]{"blanco", "negro", "rojo", "azul", "gris"});
+        List<String> colores = Arrays.asList("blanco", "negro", "rojo", "azul", "gris");
         if (colores.contains(color.toLowerCase(Locale.ROOT))){
             return color;
         }
-        return "blanco";
+        return colorDefault;
     }
 
     public int precioFinal(){
@@ -82,7 +87,7 @@ public class Electrodomestico {
     public int consumoPeso(int peso){
         int consumo;
         if (peso < 20){
-            consumo = 30;
+            consumo = 10;
         }else if(peso > 19 && peso < 50){
             consumo = 50;
         }else if(peso > 49 && peso < 80){

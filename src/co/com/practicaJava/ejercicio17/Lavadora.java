@@ -2,13 +2,17 @@ package co.com.practicaJava.ejercicio17;
 
 public class Lavadora extends Electrodomestico{
 
-    private Integer carga = 5;
+    private final static int cargaDefault = 5;
+
+    private Integer carga;
 
     public Lavadora() {
+        this(precioBaseDefault, colorDefault, consumoEnergicoDefault, pesoDefault, cargaDefault);
     }
 
     public Lavadora(Integer precioBase, Integer peso) {
         super(precioBase, peso);
+        this.carga = cargaDefault;
     }
 
     public Lavadora(Integer precioBase, String color, Character consumoEnergico, Integer peso, Integer carga) {
